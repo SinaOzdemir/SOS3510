@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Text-as-data: obtaining text: | A quick introduction to automated text analysis</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Text-as-data: obtaining text: | A quick introduction to automated text analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Text-as-data: obtaining text: | A quick introduction to automated text analysis" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sina Oezdemir" />
+
+
+<meta name="date" content="2022-08-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="programming-with-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction:</a></li>
+<li class="chapter" data-level="2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html"><i class="fa fa-check"></i><b>2</b> Setting up R and R studio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r"><i class="fa fa-check"></i><b>2.1</b> Installing R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-windows"><i class="fa fa-check"></i><b>2.1.1</b> Installing R for Windows</a></li>
+<li class="chapter" data-level="2.1.2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-mac"><i class="fa fa-check"></i><b>2.1.2</b> Installing R for Mac</a></li>
+<li class="chapter" data-level="2.1.3" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-linux-distributions"><i class="fa fa-check"></i><b>2.1.3</b> Installing R for Linux distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-studio"><i class="fa fa-check"></i><b>2.2</b> Installing R studio</a></li>
+<li class="chapter" data-level="2.3" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#updating-r-and-rstudio"><i class="fa fa-check"></i><b>2.3</b> Updating R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html"><i class="fa fa-check"></i><b>3</b> R and Rstudio basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#interface-basics"><i class="fa fa-check"></i><b>3.1</b> Interface &amp; basics</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html"><i class="fa fa-check"></i><b>4</b> Basics of Object Oriented Programming (OOP)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html#object-oriented-programming"><i class="fa fa-check"></i><b>4.1</b> object oriented programming</a></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html#indexing-objects"><i class="fa fa-check"></i><b>4.2</b> indexing objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>5</b> Programming with R:</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="programming-with-r.html"><a href="programming-with-r.html#logical-and-mathematical-operation"><i class="fa fa-check"></i><b>5.1</b> logical and mathematical operation:</a></li>
+<li class="chapter" data-level="5.2" data-path="programming-with-r.html"><a href="programming-with-r.html#loops-controls-and-functions"><i class="fa fa-check"></i><b>5.2</b> Loops, controls and functions</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="programming-with-r.html"><a href="programming-with-r.html#loops"><i class="fa fa-check"></i><b>5.2.1</b> Loops:</a></li>
+<li class="chapter" data-level="5.2.2" data-path="programming-with-r.html"><a href="programming-with-r.html#controls"><i class="fa fa-check"></i><b>5.2.2</b> Controls:</a></li>
+<li class="chapter" data-level="5.2.3" data-path="programming-with-r.html"><a href="programming-with-r.html#functions"><i class="fa fa-check"></i><b>5.2.3</b> Functions:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="programming-with-r.html"><a href="programming-with-r.html#scripting-and-sourcing"><i class="fa fa-check"></i><b>5.3</b> Scripting and Sourcing</a></li>
+<li class="chapter" data-level="5.4" data-path="programming-with-r.html"><a href="programming-with-r.html#packages-in-r"><i class="fa fa-check"></i><b>5.4</b> Packages in R:</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="text-as-data-obtaining-text.html"><a href="text-as-data-obtaining-text.html"><i class="fa fa-check"></i><b>6</b> Text-as-data: obtaining text:</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="text-as-data-obtaining-text.html"><a href="text-as-data-obtaining-text.html#machine-readable-vs-non-machine-readable-text"><i class="fa fa-check"></i><b>6.1</b> Machine readable vs non-machine readable text</a></li>
+<li class="chapter" data-level="6.2" data-path="text-as-data-obtaining-text.html"><a href="text-as-data-obtaining-text.html#manual-download-and-manual-read"><i class="fa fa-check"></i><b>6.2</b> Manual download and manual read</a></li>
+<li class="chapter" data-level="6.3" data-path="text-as-data-obtaining-text.html"><a href="text-as-data-obtaining-text.html#web-scraping"><i class="fa fa-check"></i><b>6.3</b> Web-scraping</a></li>
+<li class="chapter" data-level="6.4" data-path="text-as-data-obtaining-text.html"><a href="text-as-data-obtaining-text.html#application-programming-interfaces-apis"><i class="fa fa-check"></i><b>6.4</b> Application programming interfaces (APIs)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A quick introduction to automated text analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="text-as-data-obtaining-text" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Text-as-data: obtaining text:<a href="text-as-data-obtaining-text.html#text-as-data-obtaining-text" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Text as data has gained quite a traction in political science and many other social science disciplines in the recent years. This partly due to the abundance of text we can access and partly the technology that allows us collect and analyse large amounts of text. We will take a look at a few common ways to obtain text from various sources and how to read it in R so that we can work on it further.</p>
+<div id="machine-readable-vs-non-machine-readable-text" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Machine readable vs non-machine readable text<a href="text-as-data-obtaining-text.html#machine-readable-vs-non-machine-readable-text" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We use most often machine readable text when we work with text-as-data. Machine readable text refers to the fact that the text is digitized. It has a binary representation so that computers can process it as information. Most texts we get from online sources are machine readable. These can easily be loaded into R or other software to work further.</p>
+<p>Non-machine readable texts are those that are not yet put into binary format. Texts that are still on paper are good examples. Another problem might be that the text is digitized but in image format. For example, when you scan something, it is actually an image not a text. Recent developments in Optical Character Recognition (OCR) can help us convert these to machine readable text. While it is quite easy to do this, it is often sub-optimal. OCR is essentially an image classification machine learning that looks at the picture and tries to guess what characters there are in the image. So it always comes with a margin of error. Lets take a look at how we can do this. We will use the image below for illustration</p>
+<pre><code>## here() starts at C:/Users/sinaoz/OneDrive - NTNU/Work/Pflictarbeit/Teaching/SOS3515_2022/automated_text_analysis</code></pre>
+<p><img src="testocr.png" width="320" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="text-as-data-obtaining-text.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tesseract)</span>
+<span id="cb2-2"><a href="text-as-data-obtaining-text.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="text-as-data-obtaining-text.html#cb2-3" aria-hidden="true" tabindex="-1"></a>OCR_engine<span class="ot">&lt;-</span> <span class="fu">tesseract</span>(<span class="at">language =</span> <span class="st">&quot;eng&quot;</span>)</span>
+<span id="cb2-4"><a href="text-as-data-obtaining-text.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="text-as-data-obtaining-text.html#cb2-5" aria-hidden="true" tabindex="-1"></a>machine_readable_text<span class="ot">&lt;-</span> tesseract<span class="sc">::</span><span class="fu">ocr</span>(<span class="at">image =</span> <span class="fu">here</span>(<span class="st">&quot;testocr.png&quot;</span>),<span class="at">engine =</span> OCR_engine)</span>
+<span id="cb2-6"><a href="text-as-data-obtaining-text.html#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="text-as-data-obtaining-text.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(machine_readable_text)</span></code></pre></div>
+<pre><code>## [1] &quot;This is a lot of 12 point text to test the\nocr code and see if it works on all types\nof file format.\n\nThe quick brown dog jumped over the\nlazy fox. The quick brown dog jumped\nover the lazy fox. The quick brown dog\njumped over the lazy fox. The quick\nbrown dog jumped over the lazy fox.\n&quot;</code></pre>
+<p>Lets break down what we did there. First we load the package <code>tesseract</code>. This is the package for OCR engine that processes the image and extracts the text. Then we specify which language we will use with <code>tesseract()</code> function. Finally, we feed the image to the engine with <code>tesseract::ocr()</code> function. This extracts the text from the image. You can also use <code>tesseract::ocr_data()</code> to get a detailed dataset of words and prediction confidence if you want to work further. Finally, the image we used is a clean example. It is a black and white image of typewritten text (as opposed to handwritten). Not all text images behave so nicely. They could be colored, handwritten or very blurry. You can use <code>magick</code> package to clean the image, for example convert it to black and white, before feeding them into OCR. There is no recipe for such a task. You’ll need to play around and figure out what works best for you.</p>
+</div>
+<div id="manual-download-and-manual-read" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Manual download and manual read<a href="text-as-data-obtaining-text.html#manual-download-and-manual-read" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While many things can be automated (including downloading images and texts), there is always the option of downloading the text manually. You can do this from a website like <a href="hansard.parliament.uk">Hansard for the UK house of commons</a>. These are just databases where you download a text.</p>
+<p>There are few things that would make your life a lot easier if you are manually downloading text. First and foremost, the file format. When you are downloading text online, pay attention to the format you are saving the file. .TXT files are easier to use in natural language processing than PDFs and PDFs are easier to use than word documents. The second thing you need to pay attention is the file encoding. You may have heard things like ASCII and UTF-8 before. These are systems a computer uses to identify and display letters, remember computers only understand numbers. Some characters have representation in their own system. For example, UTF-8 is one of the most versatile and common system to represent English alphabetical characters but it doesn’t have ways to represent Norwegian letters. So if you save a Norwegian text in UTF-8 there is a good chance that there will be odd letter. Finally, it is important to pay attention to the file name when you are saving it. Special characters and white spaces can sometimes cause a problem in reading the file into R or other software.</p>
+<p>Lets see how we can read different file formats into R to work on them furher. The main package we use for this is <code>textreadr</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="text-as-data-obtaining-text.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the package, you need to do this only once</span></span>
+<span id="cb4-2"><a href="text-as-data-obtaining-text.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;textreadr&quot;)</span></span>
+<span id="cb4-3"><a href="text-as-data-obtaining-text.html#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="text-as-data-obtaining-text.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Attach the package to the session, you need to this every time you start R</span></span>
+<span id="cb4-5"><a href="text-as-data-obtaining-text.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textreadr)</span>
+<span id="cb4-6"><a href="text-as-data-obtaining-text.html#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="text-as-data-obtaining-text.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#reading txt files</span></span>
+<span id="cb4-8"><a href="text-as-data-obtaining-text.html#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="text-as-data-obtaining-text.html#cb4-9" aria-hidden="true" tabindex="-1"></a>txt_file<span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">&quot;lorem_ipsum.txt&quot;</span>),<span class="at">header =</span> F)</span>
+<span id="cb4-10"><a href="text-as-data-obtaining-text.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(txt_file<span class="sc">$</span>V1)</span></code></pre></div>
+<pre><code>## [1] &quot;\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit lacinia neque, quis eleifend erat venenatis euismod. Aenean molestie, nisi id congue tincidunt, arcu nulla mollis quam, non eleifend ipsum odio non nibh. Ut ligula metus, tincidunt vel elit ut, hendrerit luctus enim. Aenean lacinia ac sapien sed pellentesque. Phasellus molestie imperdiet sodales. Fusce vehicula purus et dolor accumsan, vel sollicitudin orci maximus. Integer ac luctus lacus, vitae imperdiet purus. Nulla at rhoncus ligula. Nullam lacinia lacinia lorem, sit amet auctor urna suscipit rutrum. Nullam eu porta libero. Cras vel urna vitae odio rutrum hendrerit a in eros. Morbi eu facilisis nibh. Praesent lacinia commodo ultricies. Nunc quis diam auctor, semper sapien fermentum, porta odio. Pellentesque odio lacus, dictum ut iaculis aliquet, vehicula vitae dui.\n\nMaecenas faucibus viverra aliquam. Morbi tellus ipsum, bibendum ac fermentum ut, volutpat quis dui. Phasellus hendrerit, ipsum quis accumsan condimentum, ex tellus laoreet diam, nec finibus massa velit quis tellus. Sed maximus scelerisque ex id elementum. Mauris vel lacinia lorem. Vivamus auctor pretium metus, at placerat ex venenatis in. Donec mauris est, ultricies sed gravida sed, volutpat ut augue.\n\nDonec non scelerisque purus, sed dapibus ante. Vestibulum dictum enim dignissim felis condimentum, ac viverra nisi cursus. Cras egestas magna vitae purus ultricies malesuada. Suspendisse euismod, enim non venenatis tempus, velit odio cursus ipsum, a faucibus dui quam quis ante. Aenean tristique in eros non dictum. In ornare consequat quam eu mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at euismod turpis. Phasellus a feugiat magna. Ut rutrum ornare felis consequat rutrum. Cras hendrerit tellus nec dui malesuada, a blandit felis lacinia. Nullam sed mattis metus. Sed dictum massa quis leo molestie varius.\n\nPraesent egestas nisi erat. Morbi rutrum congue lacinia. Donec lobortis nunc vitae semper vulputate. Quisque ullamcorper sit amet eros eget gravida. Cras molestie augue quis eros blandit efficitur. Aenean id magna tempor, lobortis nisi sed, placerat eros. Quisque imperdiet elit sed lorem venenatis, nec porttitor risus consectetur. In hac habitasse platea dictumst. Aliquam venenatis urna ac varius tincidunt. Vestibulum sodales, sem a vulputate sagittis, mauris lorem facilisis ante, non convallis leo magna id eros.\n\nMaecenas mollis non orci mollis feugiat. Vivamus scelerisque ut velit sed bibendum. Cras auctor cursus turpis a posuere. Integer maximus mollis arcu. In convallis, lacus sit amet pellentesque consectetur, nisl erat lobortis leo, sed venenatis tortor dolor eget arcu. Praesent vitae nisi magna. Vestibulum ultricies elementum rutrum. Donec posuere eleifend sodales. Nunc at erat ut sem gravida semper et vitae lectus. &quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="text-as-data-obtaining-text.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reading pdf files</span></span>
+<span id="cb6-2"><a href="text-as-data-obtaining-text.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="text-as-data-obtaining-text.html#cb6-3" aria-hidden="true" tabindex="-1"></a>pdf_file<span class="ot">&lt;-</span> <span class="fu">read_pdf</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">&quot;lorem_ipsum.pdf&quot;</span>))</span>
+<span id="cb6-4"><a href="text-as-data-obtaining-text.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="text-as-data-obtaining-text.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pdf_file<span class="sc">$</span>text)</span></code></pre></div>
+<pre><code>## [1] &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit lacinia neque, quis eleifend\nerat venenatis euismod. Aenean molestie, nisi id congue tincidunt, arcu nulla mollis quam, non\neleifend ipsum odio non nibh. Ut ligula metus, tincidunt vel elit ut, hendrerit luctus enim. Aenean\nlacinia ac sapien sed pellentesque. Phasellus molestie imperdiet sodales. Fusce vehicula purus et\ndolor accumsan, vel sollicitudin orci maximus. Integer ac luctus lacus, vitae imperdiet purus. Nulla at\nrhoncus ligula. Nullam lacinia lacinia lorem, sit amet auctor urna suscipit rutrum. Nullam eu porta\nlibero. Cras vel urna vitae odio rutrum hendrerit a in eros. Morbi eu facilisis nibh. Praesent lacinia\ncommodo ultricies. Nunc quis diam auctor, semper sapien fermentum, porta odio. Pellentesque odio\nlacus, dictum ut iaculis aliquet, vehicula vitae dui.\n\n\n\nMaecenas faucibus viverra aliquam. Morbi tellus ipsum, bibendum ac fermentum ut, volutpat quis\ndui. Phasellus hendrerit, ipsum quis accumsan condimentum, ex tellus laoreet diam, nec finibus\nmassa velit quis tellus. Sed maximus scelerisque ex id elementum. Mauris vel lacinia lorem. Vivamus\nauctor pretium metus, at placerat ex venenatis in. Donec mauris est, ultricies sed gravida sed,\nvolutpat ut augue.\n\n\n\nDonec non scelerisque purus, sed dapibus ante. Vestibulum dictum enim dignissim felis\ncondimentum, ac viverra nisi cursus. Cras egestas magna vitae purus ultricies malesuada.\nSuspendisse euismod, enim non venenatis tempus, velit odio cursus ipsum, a faucibus dui quam quis\nante. Aenean tristique in eros non dictum. In ornare consequat quam eu mollis. Lorem ipsum dolor\nsit amet, consectetur adipiscing elit. Donec at euismod turpis. Phasellus a feugiat magna. Ut rutrum\nornare felis consequat rutrum. Cras hendrerit tellus nec dui malesuada, a blandit felis lacinia. Nullam\nsed mattis metus. Sed dictum massa quis leo molestie varius.\n\n\n\nPraesent egestas nisi erat. Morbi rutrum congue lacinia. Donec lobortis nunc vitae semper vulputate.\nQuisque ullamcorper sit amet eros eget gravida. Cras molestie augue quis eros blandit efficitur.\nAenean id magna tempor, lobortis nisi sed, placerat eros. Quisque imperdiet elit sed lorem\nvenenatis, nec porttitor risus consectetur. In hac habitasse platea dictumst. Aliquam venenatis urna\nac varius tincidunt. Vestibulum sodales, sem a vulputate sagittis, mauris lorem facilisis ante, non\nconvallis leo magna id eros.\n\n\n\nMaecenas mollis non orci mollis feugiat. Vivamus scelerisque ut velit sed bibendum. Cras auctor\ncursus turpis a posuere. Integer maximus mollis arcu. In convallis, lacus sit amet pellentesque\nconsectetur, nisl erat lobortis leo, sed venenatis tortor dolor eget arcu. Praesent vitae nisi magna.\nVestibulum ultricies elementum rutrum. Donec posuere eleifend sodales. Nunc at erat ut sem\ngravida semper et vitae lectus.&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="text-as-data-obtaining-text.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#reading word files</span></span>
+<span id="cb8-2"><a href="text-as-data-obtaining-text.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="text-as-data-obtaining-text.html#cb8-3" aria-hidden="true" tabindex="-1"></a>doc_file<span class="ot">&lt;-</span> <span class="fu">read_docx</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">&quot;lorem_ipsum.docx&quot;</span>))</span>
+<span id="cb8-4"><a href="text-as-data-obtaining-text.html#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="text-as-data-obtaining-text.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(doc_file)</span></code></pre></div>
+<pre><code>## [1] &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit lacinia neque, quis eleifend erat venenatis euismod. Aenean molestie, nisi id congue tincidunt, arcu nulla mollis quam, non eleifend ipsum odio non nibh. Ut ligula metus, tincidunt vel elit ut, hendrerit luctus enim. Aenean lacinia ac sapien sed pellentesque. Phasellus molestie imperdiet sodales. Fusce vehicula purus et dolor accumsan, vel sollicitudin orci maximus. Integer ac luctus lacus, vitae imperdiet purus. Nulla at rhoncus ligula. Nullam lacinia lacinia lorem, sit amet auctor urna suscipit rutrum. Nullam eu porta libero. Cras vel urna vitae odio rutrum hendrerit a in eros. Morbi eu facilisis nibh. Praesent lacinia commodo ultricies. Nunc quis diam auctor, semper sapien fermentum, porta odio. Pellentesque odio lacus, dictum ut iaculis aliquet, vehicula vitae dui.&quot;
+## [2] &quot;Maecenas faucibus viverra aliquam. Morbi tellus ipsum, bibendum ac fermentum ut, volutpat quis dui. Phasellus hendrerit, ipsum quis accumsan condimentum, ex tellus laoreet diam, nec finibus massa velit quis tellus. Sed maximus scelerisque ex id elementum. Mauris vel lacinia lorem. Vivamus auctor pretium metus, at placerat ex venenatis in. Donec mauris est, ultricies sed gravida sed, volutpat ut augue.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+## [3] &quot;Donec non scelerisque purus, sed dapibus ante. Vestibulum dictum enim dignissim felis condimentum, ac viverra nisi cursus. Cras egestas magna vitae purus ultricies malesuada. Suspendisse euismod, enim non venenatis tempus, velit odio cursus ipsum, a faucibus dui quam quis ante. Aenean tristique in eros non dictum. In ornare consequat quam eu mollis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at euismod turpis. Phasellus a feugiat magna. Ut rutrum ornare felis consequat rutrum. Cras hendrerit tellus nec dui malesuada, a blandit felis lacinia. Nullam sed mattis metus. Sed dictum massa quis leo molestie varius.&quot;                                                                                                                                                                                                                         
+## [4] &quot;Praesent egestas nisi erat. Morbi rutrum congue lacinia. Donec lobortis nunc vitae semper vulputate. Quisque ullamcorper sit amet eros eget gravida. Cras molestie augue quis eros blandit efficitur. Aenean id magna tempor, lobortis nisi sed, placerat eros. Quisque imperdiet elit sed lorem venenatis, nec porttitor risus consectetur. In hac habitasse platea dictumst. Aliquam venenatis urna ac varius tincidunt. Vestibulum sodales, sem a vulputate sagittis, mauris lorem facilisis ante, non convallis leo magna id eros.&quot;                                                                                                                                                                                                                                                                                                                                              
+## [5] &quot;Maecenas mollis non orci mollis feugiat. Vivamus scelerisque ut velit sed bibendum. Cras auctor cursus turpis a posuere. Integer maximus mollis arcu. In convallis, lacus sit amet pellentesque consectetur, nisl erat lobortis leo, sed venenatis tortor dolor eget arcu. Praesent vitae nisi magna. Vestibulum ultricies elementum rutrum. Donec posuere eleifend sodales. Nunc at erat ut sem gravida semper et vitae lectus.&quot;</code></pre>
+<p><code>textreadr</code> also offers functions to read other file formats such as .rtf and .odt.</p>
+</div>
+<div id="web-scraping" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Web-scraping<a href="text-as-data-obtaining-text.html#web-scraping" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Another possible source for text is websites on internet. We can scrape pretty much all websites but some are easier than others. If a website is static, it is fairly easy to get the text. Conversely, dynamic websites are a little harder. Static websites are those that have everything in one html file so when you go to the website the content you want is already provided. Dynamic websites, on the other hand, have information in some sort of database and call them based on demand. Websites that you need to click places to get the text are usually dynamic websites.</p>
+<p>Web scraping is essentially just reading a whole website into R and then selecting the relevant parts. In an html page, different parts of a page are marked with html tags, and these are what we use to specify what we want to extract. To illustrate this, lets assume that we want to scrape <a href="https://en.wikipedia.org/wiki/2021_Norwegian_parliamentary_election">Storting elections in 2021 on wikipedia</a>. If we want the information about the turnout in the table, we need to look for it’s html tag in the page. In this case it is table class = “wikitable ib-legis-elect-results plainrowheaders” as shown in the figure below. You can find this by right-cliking on the element and selecting “inspect” in the drop down menu.</p>
+<p><img src="html_example.png" width="962" /></p>
+<p>There are two tools that make this whole process a lot easier. First is the <a href="https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb?hl=en">css selector gadget</a>. This is a browser extension that extracts the html tag for you by simply left clicking on the element. The extention is available in chorme and firefox but it works better on chrome browser. It looks like the following image when you use the selector gadget extention.</p>
+<p><img src="selectorgadget_example.png" width="960" /></p>
+<p>The other tool we need is a package called <code>rvest</code>. This package helps us to read the html page, extract the information using the tag and put it into a usable dataset format. here is the example code for scraping Norwegian elections:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="text-as-data-obtaining-text.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.package(&quot;rvest&quot;)</span></span>
+<span id="cb10-2"><a href="text-as-data-obtaining-text.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="text-as-data-obtaining-text.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;rvest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:textreadr&#39;:
+## 
+##     read_html</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="text-as-data-obtaining-text.html#cb13-1" aria-hidden="true" tabindex="-1"></a>website<span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="at">x =</span> <span class="st">&quot;https://en.wikipedia.org/wiki/2021_Norwegian_parliamentary_election&quot;</span>)</span>
+<span id="cb13-2"><a href="text-as-data-obtaining-text.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="text-as-data-obtaining-text.html#cb13-3" aria-hidden="true" tabindex="-1"></a>party<span class="ot">&lt;-</span> website <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">&quot;.plainrowheaders th a&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>(<span class="at">trim =</span> T)</span>
+<span id="cb13-4"><a href="text-as-data-obtaining-text.html#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="text-as-data-obtaining-text.html#cb13-5" aria-hidden="true" tabindex="-1"></a>leaders<span class="ot">&lt;-</span> website <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">&quot;.plainrowheaders th+ td&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>(<span class="at">trim =</span> T)</span>
+<span id="cb13-6"><a href="text-as-data-obtaining-text.html#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="text-as-data-obtaining-text.html#cb13-7" aria-hidden="true" tabindex="-1"></a>percentages<span class="ot">&lt;-</span>  website <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">&quot;.ib-legis-elect-percent&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>(<span class="at">trim =</span> T) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb13-8"><a href="text-as-data-obtaining-text.html#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="text-as-data-obtaining-text.html#cb13-9" aria-hidden="true" tabindex="-1"></a>seats<span class="ot">&lt;-</span> website <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">&quot;.ib-legis-elect-percent+ .ib-legis-elect-seats&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>(<span class="at">trim =</span> T) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb13-10"><a href="text-as-data-obtaining-text.html#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="text-as-data-obtaining-text.html#cb13-11" aria-hidden="true" tabindex="-1"></a>change <span class="ot">&lt;-</span> website <span class="sc">%&gt;%</span> <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">&quot;.nowrap.ib-legis-elect-seats&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>(<span class="at">trim =</span> T) <span class="sc">%&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb13-12"><a href="text-as-data-obtaining-text.html#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="text-as-data-obtaining-text.html#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="text-as-data-obtaining-text.html#cb13-14" aria-hidden="true" tabindex="-1"></a>storting_election_results<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">party =</span> party,</span>
+<span id="cb13-15"><a href="text-as-data-obtaining-text.html#cb13-15" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">leaders =</span> leaders,</span>
+<span id="cb13-16"><a href="text-as-data-obtaining-text.html#cb13-16" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">percent =</span> percentages,</span>
+<span id="cb13-17"><a href="text-as-data-obtaining-text.html#cb13-17" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">n_seats =</span> seats,</span>
+<span id="cb13-18"><a href="text-as-data-obtaining-text.html#cb13-18" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">change =</span> change)</span>
+<span id="cb13-19"><a href="text-as-data-obtaining-text.html#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="text-as-data-obtaining-text.html#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storting_election_results)</span></code></pre></div>
+<pre><code>##            party                leaders percent n_seats change
+## 1         Labour       Jonas Gahr Støre    26.3      48     -1
+## 2   Conservative           Erna Solberg    20.4      36     -9
+## 3         Centre Trygve Slagsvold Vedum    13.5      28      9
+## 4       Progress         Sylvi Listhaug    11.6      21     -6
+## 5 Socialist Left        Audun Lysbakken     7.6      13      2
+## 6            Red         Bjørnar Moxnes     4.7       8      7</code></pre>
+<p>Lets break down the code above. First we read the html website with <code>read_html</code>. Then, using selector gadget we identify tags for elements we want and extract them from the html. In this particular case we had to individually extract information on parties, leaders etc. because of the website design. There were too many overlapping html tags and attributes, so for example if we just extracted html elements “a”, we would also get other irrelevant things like links in the text body. Finally we finally put everything into one dataset with <code>data.frame()</code> function. One last thing about web scraping is whether it is allowed or not. You should check the robot.txt of the webpage (eg.www.webpage.com/robot.txt) to see if you are allowed to do so.</p>
+</div>
+<div id="application-programming-interfaces-apis" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Application programming interfaces (APIs)<a href="text-as-data-obtaining-text.html#application-programming-interfaces-apis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Application programming interfaces are intermediaries between a user and a database. You can think of them as digital librarians. When we want some information from a database with an API, we essentially make a request to this digital librarian which in turn gives us the dataset. Therefore, they are often preferable to webscraping as they can provide a clean, targeted and formated dataset.</p>
+<p>There are several key points to know about APIs. First of all, most APIs require some form key. These keys indicate that you are allowed to access data sets in the database. These keys are often obtained by creating an account on a webpage and requesting a key. The second important point is that most APIs provide data sets in JSON format. JSON is a hierarchical dataset format consisting of list of lists with name-element combinations. While JSON offers a light weight and structured dataset, it still takes some data wrangling to turn it into tabular data. Lastly, some APIs have dedicated R packages. These packages automate often simplify the process of building requests and data sets, so it is generally advisable to look for a package before using raw API. For this example we would like to get the party manifestos of Right (H) party of Norway between 1990 and 2017</p>
+<p>Lets illustrate the use of API with http calls and a package using <a href="https://manifesto-project.wzb.eu/">Manifesto project</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="text-as-data-obtaining-text.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb15-2"><a href="text-as-data-obtaining-text.html#cb15-2" aria-hidden="true" tabindex="-1"></a>packs<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;httr&quot;</span>,<span class="st">&quot;jsonlite&quot;</span>)</span>
+<span id="cb15-3"><a href="text-as-data-obtaining-text.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(<span class="at">char =</span> packs)</span>
+<span id="cb15-4"><a href="text-as-data-obtaining-text.html#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="text-as-data-obtaining-text.html#cb15-5" aria-hidden="true" tabindex="-1"></a>base_link<span class="ot">&lt;-</span> <span class="st">&quot;https://manifesto-project.wzb.eu/api/v1/&quot;</span></span>
+<span id="cb15-6"><a href="text-as-data-obtaining-text.html#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="text-as-data-obtaining-text.html#cb15-7" aria-hidden="true" tabindex="-1"></a>api_key<span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;api_key=&quot;</span>,<span class="st">&quot;5a937a227a2ca01a97e5e017bb77720f&quot;</span>)</span>
+<span id="cb15-8"><a href="text-as-data-obtaining-text.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="text-as-data-obtaining-text.html#cb15-9" aria-hidden="true" tabindex="-1"></a>data_call<span class="ot">&lt;-</span> <span class="st">&quot;get_core?&quot;</span></span>
+<span id="cb15-10"><a href="text-as-data-obtaining-text.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#create the request for data</span></span>
+<span id="cb15-11"><a href="text-as-data-obtaining-text.html#cb15-11" aria-hidden="true" tabindex="-1"></a>dataset_call<span class="ot">&lt;-</span> <span class="fu">paste0</span>(base_link,data_call,api_key,<span class="st">&quot;&amp;&quot;</span>,<span class="st">&quot;key=&quot;</span>,<span class="st">&quot;MPDS2021a&quot;</span>,<span class="st">&quot;&amp;&quot;</span>,<span class="st">&quot;kind=&quot;</span>,<span class="st">&quot;csv&quot;</span>)</span>
+<span id="cb15-12"><a href="text-as-data-obtaining-text.html#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#make the call</span></span>
+<span id="cb15-13"><a href="text-as-data-obtaining-text.html#cb15-13" aria-hidden="true" tabindex="-1"></a>dataset_raw<span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(dataset_call)</span>
+<span id="cb15-14"><a href="text-as-data-obtaining-text.html#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the raw encoding to character encoding</span></span>
+<span id="cb15-15"><a href="text-as-data-obtaining-text.html#cb15-15" aria-hidden="true" tabindex="-1"></a>dataset_char<span class="ot">&lt;-</span> <span class="fu">rawToChar</span>(dataset_raw<span class="sc">$</span>content)</span>
+<span id="cb15-16"><a href="text-as-data-obtaining-text.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#convert json to data frame</span></span>
+<span id="cb15-17"><a href="text-as-data-obtaining-text.html#cb15-17" aria-hidden="true" tabindex="-1"></a>dataset_json<span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="at">txt =</span> dataset_char,<span class="at">flatten =</span> T,<span class="at">simplifyDataFrame =</span> F)</span>
+<span id="cb15-18"><a href="text-as-data-obtaining-text.html#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#wrangle dataset into a workable format</span></span>
+<span id="cb15-19"><a href="text-as-data-obtaining-text.html#cb15-19" aria-hidden="true" tabindex="-1"></a>data_colnames<span class="ot">&lt;-</span> dataset_json[<span class="dv">1</span>,]</span>
+<span id="cb15-20"><a href="text-as-data-obtaining-text.html#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="text-as-data-obtaining-text.html#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dataset_json)<span class="ot">&lt;-</span>data_colnames</span>
+<span id="cb15-22"><a href="text-as-data-obtaining-text.html#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="text-as-data-obtaining-text.html#cb15-23" aria-hidden="true" tabindex="-1"></a>dataset<span class="ot">&lt;-</span>dataset_json[<span class="sc">-</span><span class="dv">1</span>,] <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb15-24"><a href="text-as-data-obtaining-text.html#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="text-as-data-obtaining-text.html#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dataset)</span></code></pre></div>
+<pre><code>##   country countryname oecdmember eumember      edate   date party
+## 1      11      Sweden          0        0 17/09/1944 194409 11220
+## 2      11      Sweden          0        0 17/09/1944 194409 11320
+## 3      11      Sweden          0        0 17/09/1944 194409 11420
+## 4      11      Sweden          0        0 17/09/1944 194409 11620
+## 5      11      Sweden          0        0 17/09/1944 194409 11810
+## 6      11      Sweden          0        0 19/09/1948 194809 11220
+##                        partyname partyabbrev parfam coderid manual coderyear
+## 1      Communist Party of Sweden         SKP     20     117      0      1983
+## 2 Social Democratic Labour Party         SAP     30     117      0      1983
+## 3                 People’s Party          FP     40     117      0      1983
+## 4                    Right Party                 60     117      0      1983
+## 5                 Agrarian Party                 80     117      0      1983
+## 6      Communist Party of Sweden         SKP     20     117      0      1983
+##   testresult testeditsim pervote voteest presvote absseat totseats progtype
+## 1       &lt;NA&gt;        &lt;NA&gt;    10.3       0     &lt;NA&gt;      15      230        1
+## 2       &lt;NA&gt;        &lt;NA&gt;    46.5       0     &lt;NA&gt;     115      230        1
+## 3       &lt;NA&gt;        &lt;NA&gt;    12.9       0     &lt;NA&gt;      26      230        1
+## 4       &lt;NA&gt;        &lt;NA&gt;    15.8       0     &lt;NA&gt;      39      230        1
+## 5       &lt;NA&gt;        &lt;NA&gt;    13.6       0     &lt;NA&gt;      35      230        1
+## 6       &lt;NA&gt;        &lt;NA&gt;   6.312       0     &lt;NA&gt;       8      230        1
+##   datasetorigin corpusversion total peruncod per101 per102 per103 per104 per105
+## 1            41                  52     &lt;NA&gt;    1.9      0      0      0      0
+## 2            41                  90     &lt;NA&gt;    1.1      0      0    2.2      0
+## 3            41                  63     &lt;NA&gt;    3.2      0      0    7.9      0
+## 4            41                  57     &lt;NA&gt;    1.8      0      0    1.8      0
+## 5            41                  21   42.857      0      0      0  4.762      0
+## 6            10                  50     &lt;NA&gt;      2      0     10      0      0
+##              per106 per107 per108 per109 per110 per201 per202 per203 per204
+## 1               1.9      0      0      0      0    9.6      0    1.9      0
+## 2 5.600000000000001    4.4      0      0      0    3.3    1.1      0      0
+## 3               1.6    3.2      0      0      0   12.7    6.4      0      0
+## 4                 0    3.5      0      0      0      7      0      0      0
+## 5             4.762      0      0      0      0      0      0      0      0
+## 6                10      0      0      0      0      4     10      0      0
+##   per301 per302 per303 per304 per305            per401 per402 per403 per404
+## 1      0      0      0      0      0                 0      0      0      0
+## 2      0      0      0      0      0                 0      0      0    3.3
+## 3    3.2      0    1.6      0      0               6.4    3.2    1.6    1.6
+## 4    1.8      0    1.8      0      0              17.5      0    1.8      0
+## 5      0      0      0      0      0 9.524000000000001      0      0      0
+## 6      0      0      4      0      0                 0      0      0      0
+##   per405 per406 per407 per408 per409 per410 per411 per412 per413
+## 1      0      0      0    3.8      0      0      0    1.9      0
+## 2      0      0      0   11.1      0    3.3      0      0      0
+## 3      0      0      0    3.2      0      0      0      0      0
+## 4      0      0      0    1.8      0      0      0      0      0
+## 5      0      0      0      0      0      0      0      0      0
+## 6      0      0      0      8      0      0      0      8      0
+##              per414 per415 per416 per501 per502            per503 per504 per505
+## 1               1.9      0      0      0      0                 0      0      0
+## 2               2.2      0      0      0      0 5.600000000000001   27.8      0
+## 3                 0      0      0      0      0               1.6   12.7      0
+## 4               5.3      0      0      0      0               5.3    5.3      0
+## 5 9.524000000000001      0      0      0      0                 0      0      0
+## 6                 2      0      0      0      0                 6     12      0
+##   per506 per507 per601 per602 per603 per604 per605 per606 per607 per608 per701
+## 1      0      0      0      0      0      0      0      0      0      0      0
+## 2    3.3      0      0      0      0      0      0      0      0      0      0
+## 3    4.8      0      0      0    6.4      0      0    4.8    4.8      0      0
+## 4      7      0    3.5      0   10.5      0      0      0      0      0      0
+## 5      0      0  4.762      0      0      0      0      0      0      0      0
+## 6      2      0      0      0      0      0      0      2      0      0      0
+##   per702 per703            per704 per705 per706 per1011 per1012 per1013 per1014
+## 1      0      0                 0      0      0       0       0       0       0
+## 2      0    4.4                 0      0    1.1       0       0       0       0
+## 3      0    4.8                 0      0      0       0       0       0       0
+## 4      0    3.5 8.800000000000001      0    3.5       0       0       0       0
+## 5      0  23.81                 0      0      0       0       0       0       0
+## 6      0      0                 0      0      4       0       0       0       0
+##   per1015 per1016 per1021 per1022 per1023 per1024 per1025 per1026 per1031
+## 1       0       0       0       0       0       0       0       0       0
+## 2       0       0       0       0       0       0       0       0       0
+## 3       0       0       0       0       0       0       0       0       0
+## 4       0       0       0       0       0       0       0       0       0
+## 5       0       0       0       0       0       0       0       0       0
+## 6       0       0       0       0       0       0       0       0       0
+##   per1032 per1033 per2021 per2022 per2023 per2031 per2032 per2033 per2041
+## 1       0       0       0       0       0       0       0       0       0
+## 2       0       0       0       0       0       0       0       0       0
+## 3       0       0       0       0       0       0       0       0       0
+## 4       0       0       0       0       0       0       0       0       0
+## 5       0       0       0       0       0       0       0       0       0
+## 6       0       0       0       0       0       0       0       0       0
+##   per3011 per3051 per3052 per3053 per3054 per3055 per4011 per4012 per4013
+## 1       0       0       0       0       0       0       0       0       0
+## 2       0       0       0       0       0       0       0       0       0
+## 3       0       0       0       0       0       0       0       0       0
+## 4       0       0       0       0       0       0       0       0       0
+## 5       0       0       0       0       0       0       0       0       0
+## 6       0       0       0       0       0       0       0       0       0
+##   per4014 per4121 per4122 per4123 per4124 per4131 per4132 per5021 per5031
+## 1       0       0       0       0       0       0       0       0       0
+## 2       0       0       0       0       0       0       0       0       0
+## 3       0       0       0       0       0       0       0       0       0
+## 4       0       0       0       0       0       0       0       0       0
+## 5       0       0       0       0       0       0       0       0       0
+## 6       0       0       0       0       0       0       0       0       0
+##   per5041 per5061 per6011 per6012 per6013 per6014 per6061 per6071 per6072
+## 1       0       0       0       0       0       0       0       0       0
+## 2       0       0       0       0       0       0       0       0       0
+## 3       0       0       0       0       0       0       0       0       0
+## 4       0       0       0       0       0       0       0       0       0
+## 5       0       0       0       0       0       0       0       0       0
+## 6       0       0       0       0       0       0       0       0       0
+##   per6081 per7051 per7052 per7061 per7062 per103_1 per103_2 per201_1 per201_2
+## 1       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 2       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 3       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 4       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 5       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 6       0       0       0       0       0     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+##   per202_1 per202_2 per202_3 per202_4 per305_1 per305_2 per305_3 per305_4
+## 1     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 2     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 3     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 4     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 5     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 6     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+##   per305_5 per305_6 per416_1 per416_2 per601_1 per601_2 per602_1 per602_2
+## 1     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 2     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 3     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 4     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 5     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 6     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+##   per605_1 per605_2 per606_1 per606_2 per607_1 per607_2 per607_3 per608_1
+## 1     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 2     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 3     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 4     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 5     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+## 6     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;
+##   per608_2 per608_3 per703_1 per703_2  rile planeco markeco welfare
+## 1     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;   9.6     1.9     1.9       0
+## 2     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; -37.8     3.3     2.2    33.4
+## 3     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;   9.5     3.2     6.4    14.3
+## 4     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;    28     1.8    22.8    10.6
+## 5     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; 23.81       0  19.048       0
+## 6     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;   -44       8       2      18
+##            intpeace datasetversion id_perm
+## 1               1.9          2021a  JN1LZH
+## 2 5.600000000000001          2021a  CMR7F6
+## 3               1.6          2021a  Z6OL6C
+## 4                 0          2021a  YMKVN2
+## 5             4.762          2021a  U4SCRD
+## 6                10          2021a  KU4SLH</code></pre>
+<p>Lets break down the code. First we create the http link for API. This requires a bit http knowledge but here are few key things. API calls always have a base link to the API. Then we add the request to it, in this case it is get_core. We use question mark “?” to indicate that we will start specifying arguments to the request. Then we use “&amp;” to combine multiple arguments. In the example above, we put “MPDS2021a” as the key argument (i.e name of the dataset) and “csv” for kind. We then send this request with <code>httr::GET()</code>. GET is one of the several ways to communicate with the API, you can take a look <a href="https://www.w3schools.com/tags/ref_httpmethods.asp">here</a> for other methods. We then get the dataset from API in raw format. This is literally 1s and 0s, so it is no way usable at the moment. We convert them to character data in JSON format and then put it in a data-frame. Only then the dataset becomes useful.</p>
+<p>Now repeat the same thing with Manifesto project’s dedicated R package.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="text-as-data-obtaining-text.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;manifestoR&quot;)</span></span>
+<span id="cb17-2"><a href="text-as-data-obtaining-text.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="text-as-data-obtaining-text.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(manifestoR)</span></code></pre></div>
+<pre><code>## Zorunlu paket yükleniyor: NLP</code></pre>
+<pre><code>## 
+## Attaching package: &#39;NLP&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:httr&#39;:
+## 
+##     content</code></pre>
+<pre><code>## Zorunlu paket yükleniyor: tm</code></pre>
+<pre><code>## When publishing work using the Manifesto Corpus, please make sure to cite it correctly and to give the identification number of the corpus version used for your analysis.
+## 
+## You can print citation and version information with the function mp_cite().
+## 
+## Note that some of the scaling/analysis algorithms provided with this package were conceptually developed by authors referenced in the respective function documentation. Please also reference them when using these algorithms.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="text-as-data-obtaining-text.html#cb23-1" aria-hidden="true" tabindex="-1"></a>mp_dataset<span class="ot">&lt;-</span> <span class="fu">mp_maindataset</span>(<span class="at">apikey =</span> <span class="st">&quot;5a937a227a2ca01a97e5e017bb77720f&quot;</span>,<span class="at">version =</span> <span class="st">&quot;MPDS2021a&quot;</span>)</span></code></pre></div>
+<pre><code>## Connecting to Manifesto Project DB API... corpus version: 2021-1</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="text-as-data-obtaining-text.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mp_dataset)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 174
+##   country count~1 oecdm~2 eumem~3 edate        date party party~4 party~5 parfam
+##     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;
+## 1      11 Sweden        0       0 1944-09-17 194409 11220 Commun~ &quot;SKP&quot;       20
+## 2      11 Sweden        0       0 1944-09-17 194409 11320 Social~ &quot;SAP&quot;       30
+## 3      11 Sweden        0       0 1944-09-17 194409 11420 People~ &quot;FP&quot;        40
+## 4      11 Sweden        0       0 1944-09-17 194409 11620 Right ~ &quot;&quot;          60
+## 5      11 Sweden        0       0 1944-09-17 194409 11810 Agrari~ &quot;&quot;          80
+## 6      11 Sweden        0       0 1948-09-19 194809 11220 Commun~ &quot;SKP&quot;       20
+## # ... with 164 more variables: coderid &lt;dbl&gt;, manual &lt;dbl&gt;, coderyear &lt;dbl&gt;,
+## #   testresult &lt;dbl&gt;, testeditsim &lt;dbl&gt;, pervote &lt;dbl&gt;, voteest &lt;dbl&gt;,
+## #   presvote &lt;dbl&gt;, absseat &lt;dbl&gt;, totseats &lt;dbl&gt;, progtype &lt;dbl&gt;,
+## #   datasetorigin &lt;dbl&gt;, corpusversion &lt;chr&gt;, total &lt;dbl&gt;, peruncod &lt;dbl&gt;,
+## #   per101 &lt;dbl&gt;, per102 &lt;dbl&gt;, per103 &lt;dbl&gt;, per104 &lt;dbl&gt;, per105 &lt;dbl&gt;,
+## #   per106 &lt;dbl&gt;, per107 &lt;dbl&gt;, per108 &lt;dbl&gt;, per109 &lt;dbl&gt;, per110 &lt;dbl&gt;,
+## #   per201 &lt;dbl&gt;, per202 &lt;dbl&gt;, per203 &lt;dbl&gt;, per204 &lt;dbl&gt;, per301 &lt;dbl&gt;, ...
+## # i Use `colnames()` to see all variable names</code></pre>
+<p>As you can see, using the package reduced the workload to a single line of code. Using APIs via http communication (i.e raw) is often more tedious, so if you have the option for a package or a library always choose that one.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="programming-with-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-obtaining_text_R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

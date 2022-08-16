@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Programming with R: | A quick introduction to automated text analysis</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Programming with R: | A quick introduction to automated text analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Programming with R: | A quick introduction to automated text analysis" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Sina Oezdemir" />
+
+
+<meta name="date" content="2022-08-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basics-of-object-oriented-programming-oop.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction:</a></li>
+<li class="chapter" data-level="2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html"><i class="fa fa-check"></i><b>2</b> Setting up R and R studio</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r"><i class="fa fa-check"></i><b>2.1</b> Installing R</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-windows"><i class="fa fa-check"></i><b>2.1.1</b> Installing R for Windows</a></li>
+<li class="chapter" data-level="2.1.2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-mac"><i class="fa fa-check"></i><b>2.1.2</b> Installing R for Mac</a></li>
+<li class="chapter" data-level="2.1.3" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-for-linux-distributions"><i class="fa fa-check"></i><b>2.1.3</b> Installing R for Linux distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#installing-r-studio"><i class="fa fa-check"></i><b>2.2</b> Installing R studio</a></li>
+<li class="chapter" data-level="2.3" data-path="setting-up-r-and-r-studio.html"><a href="setting-up-r-and-r-studio.html#updating-r-and-rstudio"><i class="fa fa-check"></i><b>2.3</b> Updating R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html"><i class="fa fa-check"></i><b>3</b> R and Rstudio basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="r-and-rstudio-basics.html"><a href="r-and-rstudio-basics.html#interface-basics"><i class="fa fa-check"></i><b>3.1</b> Interface &amp; basics</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html"><i class="fa fa-check"></i><b>4</b> Basics of Object Oriented Programming (OOP)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html#object-oriented-programming"><i class="fa fa-check"></i><b>4.1</b> object oriented programming</a></li>
+<li class="chapter" data-level="4.2" data-path="basics-of-object-oriented-programming-oop.html"><a href="basics-of-object-oriented-programming-oop.html#indexing-objects"><i class="fa fa-check"></i><b>4.2</b> indexing objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="programming-with-r.html"><a href="programming-with-r.html"><i class="fa fa-check"></i><b>5</b> Programming with R:</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="programming-with-r.html"><a href="programming-with-r.html#logical-and-mathematical-operation"><i class="fa fa-check"></i><b>5.1</b> logical and mathematical operation:</a></li>
+<li class="chapter" data-level="5.2" data-path="programming-with-r.html"><a href="programming-with-r.html#loops-controls-and-functions"><i class="fa fa-check"></i><b>5.2</b> Loops, controls and functions</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="programming-with-r.html"><a href="programming-with-r.html#loops"><i class="fa fa-check"></i><b>5.2.1</b> Loops:</a></li>
+<li class="chapter" data-level="5.2.2" data-path="programming-with-r.html"><a href="programming-with-r.html#controls"><i class="fa fa-check"></i><b>5.2.2</b> Controls:</a></li>
+<li class="chapter" data-level="5.2.3" data-path="programming-with-r.html"><a href="programming-with-r.html#functions"><i class="fa fa-check"></i><b>5.2.3</b> Functions:</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="programming-with-r.html"><a href="programming-with-r.html#scripting-and-sourcing"><i class="fa fa-check"></i><b>5.3</b> Scripting and Sourcing</a></li>
+<li class="chapter" data-level="5.4" data-path="programming-with-r.html"><a href="programming-with-r.html#packages-in-r"><i class="fa fa-check"></i><b>5.4</b> Packages in R:</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A quick introduction to automated text analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="programming-with-r" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Programming with R:<a href="programming-with-r.html#programming-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section we are building on the knowledge from the previous chapter and see how we can manipulate objects we create for our analysis. Specifically we will focus on key building blocks in programming, operations, conditions and control sequences and functions.</p>
+<div id="logical-and-mathematical-operation" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> logical and mathematical operation:<a href="programming-with-r.html#logical-and-mathematical-operation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that you are familiar with different objects and how to refer to the values in them, lets take a look at what we can do with them. First of all we can use R as a calculator, but more importantly we can do math with multiple values at once. Here are the basic mathematical operators:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="programming-with-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summation</span></span>
+<span id="cb1-2"><a href="programming-with-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">+</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 30</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="programming-with-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Substraction</span></span>
+<span id="cb3-2"><a href="programming-with-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20-10</span></span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="programming-with-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Multiplication</span></span>
+<span id="cb5-2"><a href="programming-with-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">*</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 200</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="programming-with-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Division</span></span>
+<span id="cb7-2"><a href="programming-with-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">/</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="programming-with-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Modulo</span></span>
+<span id="cb9-2"><a href="programming-with-r.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">%%</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="programming-with-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Integer division</span></span>
+<span id="cb11-2"><a href="programming-with-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">%/%</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="programming-with-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exponentiation</span></span>
+<span id="cb13-2"><a href="programming-with-r.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="sc">^</span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 1.024e+13</code></pre>
+<p>We can apply these operations to objects as well</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="programming-with-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb15-2"><a href="programming-with-r.html#cb15-2" aria-hidden="true" tabindex="-1"></a>v1<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,<span class="dv">10</span>)</span>
+<span id="cb15-3"><a href="programming-with-r.html#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="programming-with-r.html#cb15-4" aria-hidden="true" tabindex="-1"></a>v1</span></code></pre></div>
+<pre><code>##  [1]  9 74 76 55 72 54 39 83 88 15</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="programming-with-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a>v2<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,<span class="dv">10</span>)</span>
+<span id="cb17-2"><a href="programming-with-r.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="programming-with-r.html#cb17-3" aria-hidden="true" tabindex="-1"></a>v2</span></code></pre></div>
+<pre><code>##  [1] 15 42 71 74 34 24 13  8  7 27</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="programming-with-r.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector sum</span></span>
+<span id="cb19-2"><a href="programming-with-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">+</span>v2</span></code></pre></div>
+<pre><code>##  [1]  24 116 147 129 106  78  52  91  95  42</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="programming-with-r.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector substraction</span></span>
+<span id="cb21-2"><a href="programming-with-r.html#cb21-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">-</span>v2</span></code></pre></div>
+<pre><code>##  [1]  -6  32   5 -19  38  30  26  75  81 -12</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="programming-with-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector multiplication</span></span>
+<span id="cb23-2"><a href="programming-with-r.html#cb23-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">*</span>v2</span></code></pre></div>
+<pre><code>##  [1]  135 3108 5396 4070 2448 1296  507  664  616  405</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="programming-with-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector division</span></span>
+<span id="cb25-2"><a href="programming-with-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">/</span>v2</span></code></pre></div>
+<pre><code>##  [1]  0.6000000  1.7619048  1.0704225  0.7432432  2.1176471  2.2500000
+##  [7]  3.0000000 10.3750000 12.5714286  0.5555556</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="programming-with-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector modulo</span></span>
+<span id="cb27-2"><a href="programming-with-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">%%</span>v2</span></code></pre></div>
+<pre><code>##  [1]  9 32  5 55  4  6  0  3  4 15</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="programming-with-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector integer division</span></span>
+<span id="cb29-2"><a href="programming-with-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">%/%</span>v2</span></code></pre></div>
+<pre><code>##  [1]  0  1  1  0  2  2  3 10 12  0</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="programming-with-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vector exponentiation</span></span>
+<span id="cb31-2"><a href="programming-with-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a>v1<span class="sc">^</span>v2</span></code></pre></div>
+<pre><code>##  [1]  2.058911e+14  3.219083e+78 3.449571e+133 6.121235e+128  1.410278e+63
+##  [6]  3.779638e+41  4.828807e+20  2.252292e+15  4.086756e+13  5.681513e+31</code></pre>
+<p>note that when you add two vectors, it is not a normal summation but it is a vector summation. This means that first element of vector 1 will be summed with the first element of vector 2 and so on. Mathematical operations with matrices and data frames also follow the same logic.</p>
+<p>R also has a set of operations called logical operations. You are probably familiar with some of these from your math classes such as &gt; (bigger than),&lt; (smaller than). These operations test a logical statement and tells us whether this statement is True or False.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="programming-with-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bigger than</span></span>
+<span id="cb33-2"><a href="programming-with-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">&gt;</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="programming-with-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#smaller than</span></span>
+<span id="cb35-2"><a href="programming-with-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">&lt;</span><span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="programming-with-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#equal or bigger</span></span>
+<span id="cb37-2"><a href="programming-with-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">&gt;=</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="programming-with-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#equal or smaller</span></span>
+<span id="cb39-2"><a href="programming-with-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">&lt;=</span><span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="programming-with-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AND</span></span>
+<span id="cb41-2"><a href="programming-with-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">&amp;</span><span class="dv">6</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="programming-with-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#OR</span></span>
+<span id="cb43-2"><a href="programming-with-r.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">|</span><span class="dv">6</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="programming-with-r.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NOT</span></span>
+<span id="cb45-2"><a href="programming-with-r.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="programming-with-r.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#is True</span></span>
+<span id="cb47-2"><a href="programming-with-r.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isTRUE</span>(<span class="dv">5</span> <span class="sc">==</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="programming-with-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#is False</span></span>
+<span id="cb49-2"><a href="programming-with-r.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isFALSE</span>(<span class="dv">5</span> <span class="sc">!=</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Logical operators are rarely useful by themselves, however they will come very handy when we discuss conditions in the next section.</p>
+</div>
+<div id="loops-controls-and-functions" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Loops, controls and functions<a href="programming-with-r.html#loops-controls-and-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="loops" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Loops:<a href="programming-with-r.html#loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Loops are the way in which we tell R to (progressively) repeat certain operations. It is generally not recommended to make extensive use of loops in R since the underlying languange is not really optimized for looping. Without going too much into details, loops are generally rather slow in R so if you don’t have to, don’t use it. However, like medicine sometimes it is unavoidable to use loops. Personally, I decide whether or not to use loops based on two decisions: 1) how big is the calculation I need to do, 2) how long would it take me not to use a loop. Let me elaborate on these. First decision relates to the dataset, analysis, and the computer I have. So if the thing I am trying to do is relatively simple, and I have small-to-medium size dataset and a relatively strong computer (most modern laptops are!), I tend to opt for loops. Second decision relates to my personal skills and time available. In R, alternative to loops is vectorized operations. Both vectorized operations and loops can do the same, however, loops tend to be more explicit in terms of indexing and operations. So it usually takes me longer to vectorize an analysis instead of loops. If I will have to do the analysis again later on, I often choose invest a bit more time to vectorize the analysis.</p>
+<p>With that being said let take a look at how to apply loops. In R there are three forms of loops: <code>repeat()</code>,<code>for()</code>, and <code>while()</code>. <code>repeat()</code> literally repeats something certain number of times, so it is good for things like bootstrapping. <code>for</code>, on the other hand, repeats something progressively. For example, if you have a vector of values and add 5 to each element, <code>for()</code> is the way to go. Lastly, <code>While()</code> combines control and repetition in one argument. It repeats a certain action as long as a control sequence holds. But all of these are so abstract. Lets see a few examples.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="programming-with-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span>{</span>
+<span id="cb51-2"><a href="programming-with-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-3"><a href="programming-with-r.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  sentiment<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;love&quot;</span>,<span class="st">&quot;hate&quot;</span>)</span>
+<span id="cb51-4"><a href="programming-with-r.html#cb51-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-5"><a href="programming-with-r.html#cb51-5" aria-hidden="true" tabindex="-1"></a>  modifiers<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;very much&quot;</span>,<span class="st">&quot;very little&quot;</span>, <span class="st">&quot;so much&quot;</span>, <span class="st">&quot;so little&quot;</span>)</span>
+<span id="cb51-6"><a href="programming-with-r.html#cb51-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-7"><a href="programming-with-r.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  sentiment_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> sentiment,<span class="at">size =</span> <span class="dv">1</span>,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">99</span>,.<span class="dv">01</span>))</span>
+<span id="cb51-8"><a href="programming-with-r.html#cb51-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-9"><a href="programming-with-r.html#cb51-9" aria-hidden="true" tabindex="-1"></a>  modifier_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> modifiers,<span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb51-10"><a href="programming-with-r.html#cb51-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb51-11"><a href="programming-with-r.html#cb51-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(sentiment_choice <span class="sc">==</span><span class="st">&quot;love&quot;</span>){</span>
+<span id="cb51-12"><a href="programming-with-r.html#cb51-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;I&quot;</span>, sentiment_choice,<span class="st">&quot;R&quot;</span>, modifier_choice,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb51-13"><a href="programming-with-r.html#cb51-13" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb51-14"><a href="programming-with-r.html#cb51-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;There is no reason to hate R, because python is not better and STATA is expensive&quot;</span>)</span>
+<span id="cb51-15"><a href="programming-with-r.html#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb51-16"><a href="programming-with-r.html#cb51-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb51-17"><a href="programming-with-r.html#cb51-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## I love R very little 
+## I love R very much 
+## I love R very much 
+## I love R very little 
+## I love R very little 
+## I love R very little 
+## I love R so much 
+## I love R very little 
+## I love R very much 
+## I love R very much 
+## I love R so little 
+## I love R very little 
+## I love R very little 
+## I love R so much 
+## I love R very much 
+## I love R so little 
+## I love R very little 
+## I love R very much 
+## I love R very much 
+## I love R so little 
+## I love R very much 
+## I love R very much 
+## I love R so little 
+## I love R so much 
+## I love R very little 
+## I love R very little 
+## I love R so little 
+## I love R very little 
+## I love R so much 
+## I love R very little 
+## I love R so much 
+## I love R so much 
+## I love R very little 
+## I love R so much 
+## I love R so much 
+## I love R very much 
+## I love R so much 
+## I love R very little 
+## I love R very little 
+## I love R very little 
+## I love R very little 
+## I love R so little 
+## I love R very much 
+## I love R very much 
+## I love R very little 
+## I love R very little 
+## I love R very little 
+## I love R so much 
+## I love R so little 
+## I love R so little 
+## I love R very much 
+## I love R so much 
+## I love R so little 
+## I love R so little 
+## I love R so little 
+## I love R very much 
+## I love R so little 
+## I love R very much 
+## I love R so little 
+## I love R very much 
+## I love R very much 
+## I love R very little 
+## I love R very much 
+## I love R very little 
+## I love R so little 
+## I love R so much 
+## I love R very little 
+## I love R so much 
+## I love R very little 
+## I love R very much 
+## I love R very much 
+## I love R so little 
+## I love R so little 
+## I love R so little 
+## I love R so little 
+## I love R very much 
+## I love R very much 
+## I love R very much 
+## I love R very much 
+## I love R so little 
+## I love R very much 
+## I love R so much 
+## I love R so little 
+## I love R very little 
+## I love R so little 
+## I love R very little 
+## I love R very much 
+## I love R so little 
+## I love R very much 
+## I love R so much 
+## There is no reason to hate R, because python is not better and STATA is expensive</code></pre>
+<p>Above is an example of <code>repeat</code>. Notice that there is a control sequence <code>if(){}else{break}</code> at the end. This is because <code>repeat{}</code> is an infinite loop, so unless we tell R to stop repeating at some point, it will keep doing what we told forever. If we want R to do something a finite number of times, we either should include a control sequence with <code>break</code>command (in this case an if condition), or use <code>for</code> loop. Here is an example of how to do the same thing with for loop.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="programming-with-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb53-2"><a href="programming-with-r.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-3"><a href="programming-with-r.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  sentiment<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;love&quot;</span>,<span class="st">&quot;hate&quot;</span>)</span>
+<span id="cb53-4"><a href="programming-with-r.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-5"><a href="programming-with-r.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  modifiers<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;very much&quot;</span>,<span class="st">&quot;very little&quot;</span>, <span class="st">&quot;so much&quot;</span>, <span class="st">&quot;so little&quot;</span>)</span>
+<span id="cb53-6"><a href="programming-with-r.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-7"><a href="programming-with-r.html#cb53-7" aria-hidden="true" tabindex="-1"></a>  sentiment_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> sentiment,<span class="at">size =</span> <span class="dv">1</span>,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">99</span>,.<span class="dv">01</span>))</span>
+<span id="cb53-8"><a href="programming-with-r.html#cb53-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-9"><a href="programming-with-r.html#cb53-9" aria-hidden="true" tabindex="-1"></a>  modifier_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> modifiers,<span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb53-10"><a href="programming-with-r.html#cb53-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-11"><a href="programming-with-r.html#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;I&quot;</span>, sentiment_choice,<span class="st">&quot;R&quot;</span>, modifier_choice,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb53-12"><a href="programming-with-r.html#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="programming-with-r.html#cb53-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## I love R very little 
+## I love R very little 
+## I love R very much 
+## I love R so much 
+## I love R very little 
+## I love R very little 
+## I love R so much 
+## I love R so little 
+## I love R so little 
+## I love R very much</code></pre>
+<p>In this example we repeat an operation exactly 10 times. Because we used a for loop, we didn’t have to include an if condition in the loop. However, this does not mean we can’t. here is an example</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="programming-with-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb55-2"><a href="programming-with-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-3"><a href="programming-with-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  sentiment<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;love&quot;</span>,<span class="st">&quot;hate&quot;</span>)</span>
+<span id="cb55-4"><a href="programming-with-r.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-5"><a href="programming-with-r.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  modifiers<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;very much&quot;</span>,<span class="st">&quot;very little&quot;</span>, <span class="st">&quot;so much&quot;</span>, <span class="st">&quot;so little&quot;</span>)</span>
+<span id="cb55-6"><a href="programming-with-r.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-7"><a href="programming-with-r.html#cb55-7" aria-hidden="true" tabindex="-1"></a>  sentiment_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> sentiment,<span class="at">size =</span> <span class="dv">1</span>,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>))</span>
+<span id="cb55-8"><a href="programming-with-r.html#cb55-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-9"><a href="programming-with-r.html#cb55-9" aria-hidden="true" tabindex="-1"></a>  modifier_choice<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> modifiers,<span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb55-10"><a href="programming-with-r.html#cb55-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb55-11"><a href="programming-with-r.html#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(sentiment_choice <span class="sc">==</span> <span class="st">&quot;love&quot;</span>){</span>
+<span id="cb55-12"><a href="programming-with-r.html#cb55-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;I&quot;</span>, sentiment_choice,<span class="st">&quot;R&quot;</span>, modifier_choice,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)}</span>
+<span id="cb55-13"><a href="programming-with-r.html#cb55-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>{</span>
+<span id="cb55-14"><a href="programming-with-r.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;There is no reason to hate R, because python is not better and STATA is expensive</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-15"><a href="programming-with-r.html#cb55-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb55-16"><a href="programming-with-r.html#cb55-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb55-17"><a href="programming-with-r.html#cb55-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-18"><a href="programming-with-r.html#cb55-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## There is no reason to hate R, because python is not better and STATA is expensive
+## There is no reason to hate R, because python is not better and STATA is expensive
+## There is no reason to hate R, because python is not better and STATA is expensive
+## There is no reason to hate R, because python is not better and STATA is expensive
+## I love R very much 
+## I love R very much 
+## I love R very much 
+## There is no reason to hate R, because python is not better and STATA is expensive
+## I love R very little 
+## I love R so little</code></pre>
+<p>Lastly, we can repeat a certain opeartion until a condition changes. This is done by using <code>while</code>. You can read this operation as “While this is true, do that”. Here is an example:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="programming-with-r.html#cb57-1" aria-hidden="true" tabindex="-1"></a>that<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>),<span class="at">size =</span> <span class="dv">1</span>,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">7</span>,.<span class="dv">3</span>))</span>
+<span id="cb57-2"><a href="programming-with-r.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="programming-with-r.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (that <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb57-4"><a href="programming-with-r.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-5"><a href="programming-with-r.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(that)</span>
+<span id="cb57-6"><a href="programming-with-r.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-7"><a href="programming-with-r.html#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;So long as that is true, I will do this&quot;</span>)</span>
+<span id="cb57-8"><a href="programming-with-r.html#cb57-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-9"><a href="programming-with-r.html#cb57-9" aria-hidden="true" tabindex="-1"></a>  that<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>),<span class="at">size =</span> <span class="dv">1</span>,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">7</span>,.<span class="dv">3</span>))</span>
+<span id="cb57-10"><a href="programming-with-r.html#cb57-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-11"><a href="programming-with-r.html#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(that)</span>
+<span id="cb57-12"><a href="programming-with-r.html#cb57-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-13"><a href="programming-with-r.html#cb57-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb57-14"><a href="programming-with-r.html#cb57-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note that if the condition to stop a while loop is impossible, it will also run forever.</p>
+</div>
+<div id="controls" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Controls:<a href="programming-with-r.html#controls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Control sequences are used to modify the behavior in a sequence of operations. We use <code>if</code> conditions for this. We have already seen an example of this in the repeat loop. We told the R that it should print something <strong>if</strong> the sentiment is “love” and stop doing it <strong>if</strong> the sentiment is hate. Generally, loops and control sequences works like the image below</p>
+<p><img src="%22C:/Users/sinaoz/OneDrive%20-%20NTNU/Work/Pflictarbeit/Teaching/SOS3515_2022/automated_text_analysis/r-repeat-loop.jpg%22" /></p>
+<p>if conditions check for one or more statements and based on the truth of the statement alters the behavior of the command. This might sound rather abstract so lets work on an example. Lets say we want to identify all even numbers between 0 and 10. In mathematics, even numbers are defined as <span class="math inline">\(x = 2k\)</span> where k is an integer. If we translate this to common language, it means any number that is divisible by 2 (i.e remainder should be 0). We can then translate this definition to computer language using if conditions. Here is the implementation:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="programming-with-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a>numbers<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>)</span>
+<span id="cb58-2"><a href="programming-with-r.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="programming-with-r.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(numbers)) {</span>
+<span id="cb58-4"><a href="programming-with-r.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  remainder<span class="ot">&lt;-</span> numbers[i]<span class="sc">%%</span><span class="dv">2</span></span>
+<span id="cb58-5"><a href="programming-with-r.html#cb58-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb58-6"><a href="programming-with-r.html#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (remainder <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb58-7"><a href="programming-with-r.html#cb58-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(numbers[i])</span>
+<span id="cb58-8"><a href="programming-with-r.html#cb58-8" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb58-9"><a href="programming-with-r.html#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(numbers[i], <span class="st">&quot;is not an even number</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb58-10"><a href="programming-with-r.html#cb58-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb58-11"><a href="programming-with-r.html#cb58-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 0
+## 1 is not an even number
+## [1] 2
+## 3 is not an even number
+## [1] 4
+## 5 is not an even number
+## [1] 6
+## 7 is not an even number
+## [1] 8
+## 9 is not an even number
+## [1] 10</code></pre>
+<p>In human language (specifically in English) we can read this syntax as <em>for every number i in the vector numbers, divide the ith number by 2 and store the remainder in <code>remainder</code> object. If the content of the object <code>remainder</code> is 0, print the number. Else print “number i is not an even number”</em></p>
+</div>
+<div id="functions" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Functions:<a href="programming-with-r.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Functions are bread and butter of any programming task. They package any operation into a single command to make our life easier so that we don’t have to write the same commands over and over again. In programming, functions work in the same way they work in mathematics. They usually take one or more inputs, do some operations with them and give a result based on the operations.</p>
+<p>Broadly speaking, a function in R is composed of 4 elements: a name, inputs, operations and results. Name of a function enables us to use it over and over again. Inputs are what the functions are applied on. Operations are what we want the function to do. Finally, results are what come out of operations. You can get as creative as you want with these parameters. Lets see an application. In the previous example, our task was to find even numbers between 0 and 10. What if we need to find even number in any given set of numbers? We could use a for loop like we did in the previous example but this means that we need to write the loop over and over again when there is a new set of numbers. If we define a function (fancy way of saying writing a funciton), we can make our future life a lot easier. Lets see how this can be done:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="programming-with-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>even_findier<span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb60-2"><a href="programming-with-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  numbers<span class="ot">&lt;-</span> x</span>
+<span id="cb60-3"><a href="programming-with-r.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-4"><a href="programming-with-r.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  even_numbers<span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb60-5"><a href="programming-with-r.html#cb60-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-6"><a href="programming-with-r.html#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb60-7"><a href="programming-with-r.html#cb60-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-8"><a href="programming-with-r.html#cb60-8" aria-hidden="true" tabindex="-1"></a>    remainder<span class="ot">&lt;-</span> x[i]<span class="sc">%%</span><span class="dv">2</span></span>
+<span id="cb60-9"><a href="programming-with-r.html#cb60-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-10"><a href="programming-with-r.html#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(remainder <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb60-11"><a href="programming-with-r.html#cb60-11" aria-hidden="true" tabindex="-1"></a>      even_numbers<span class="ot">&lt;-</span> <span class="fu">c</span>(even_numbers,x[i])</span>
+<span id="cb60-12"><a href="programming-with-r.html#cb60-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb60-13"><a href="programming-with-r.html#cb60-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb60-14"><a href="programming-with-r.html#cb60-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb60-15"><a href="programming-with-r.html#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(even_numbers)</span>
+<span id="cb60-16"><a href="programming-with-r.html#cb60-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-17"><a href="programming-with-r.html#cb60-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-18"><a href="programming-with-r.html#cb60-18" aria-hidden="true" tabindex="-1"></a>numbers<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">18</span>,<span class="dv">24</span>,<span class="dv">31</span>,<span class="dv">55</span>,<span class="dv">98</span>,<span class="dv">73</span>,<span class="dv">67</span>)</span>
+<span id="cb60-19"><a href="programming-with-r.html#cb60-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-20"><a href="programming-with-r.html#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="fu">even_findier</span>(<span class="at">x =</span> numbers)</span></code></pre></div>
+<pre><code>## [1]  2 18 24 98</code></pre>
+<p>Lets translate this syntax into human language again. First we start by naming our function, in this case it is <code>even_finder</code>. Then we tell R that this is going to be a function that takes inputs by saying <code>function(x)</code>, x being the input. This is also called an argument. Then we define our operation. Finally, we tell R that this function should give us the results of the operation stored in <code>even_numbers</code> object by putting <code>return(even_numbers)</code> in the function. Now we have a function that finds even numbers in any given set of numbers!</p>
+</div>
+</div>
+<div id="scripting-and-sourcing" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Scripting and Sourcing<a href="programming-with-r.html#scripting-and-sourcing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far we discussed all the building blocks for programming with R. This is, however, only the tip of the iceberg. What we discussed so far gives you the tools to build up your programming skills. Even the most complex software is composed of these building blocks, so you can learn more by yourself. There are, nevertheless, a few good practices when you are programming be that as it may for your term paper or for Apple.</p>
+<p>Most important of all is to “divide and conquer”. When you are undertaking a programming task, it is generally better to divide the task into smaller tasks and do them in individual scripts. When you finish each individual taks, then you can tie them up with a source script (this is what most .exe files do when you double click on an icon). In R, this is done by <code>source()</code> function. This function tells R to execute the scripts in a particular location. The syntax looks like this:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="programming-with-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="at">file =</span> <span class="st">&quot;script directory&quot;</span>,<span class="at">local =</span> T)</span></code></pre></div>
+<p><code>file=</code> argument in source function tells R where to find the script. <code>Local = T/F</code> argument on the other hand tells R where to execute the script. If <code>local = TRUE</code>, R will execute the script on your computer. Sometimes you may want to run your script on a server, source function has other arguments for this but if this is the case <code>local</code> should be false. You can explore what else you can put in <code>source()</code> command by running <code>??source()</code> in your console.</p>
+</div>
+<div id="packages-in-r" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Packages in R:<a href="programming-with-r.html#packages-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Final building block of programming with R is the packages. Packages are function or functions other people wrote and made available to the broader public. These enable us to reuse their code for our purpose. In most cases, you won’t really have to write your own function from scratch because chances are someone else had encountered the same task and solved it. So we can simply check if they made their solution available and simply use their function.</p>
+<p>If the R and Rstudio are installed properly and you have an internet connection, it is very easy to grab a package and start using it. We use <code>install.package("package_name")</code> command. Then R will proceed to download the package and install it in you local computer. Once the package is downloaded, we need to tell R that we will use this package in our project. We do this with <code>library(package_name)</code> command. Once these are done, we are ready to use functions in the package.</p>
+<p>There are two additional information worth knowing. The first is the package repository. R packages are stored in <a href="https://cran.r-project.org/">CRAN</a> (there is no consensus on how to pronounce this, I call it <em>KRAN</em>, but I’ve heard <em>C-ran</em> as well). This is the default repository your R will use when you want to install a package. By and large, this is the most comprehensive repo for R packages out there, so you will find what you are looking for there 99% of the times. You don’t need to go to the website and browse. If you know the package name, R will take care of the rest. CRAN, however, has a very strict and arduous review process to host the package. So developers who don’t want to go through this process sometimes choose other repositories. There are two common alternatives to CRAN in R world. One of this is <a href="https://www.bioconductor.org">Bioconductor</a>. This is a repository for packages that are often developed for bioinformatics purposes but at the end of the day, statistics is statistics, so you might find something useful. Installing a package from Bioconductor is a bit trickier than CRAN. First, we need nother package called <code>BiocManager</code>. You can get this with <code>install.packages("BiocManager")</code> and then <code>library(BiocManager)</code>. Once this package is ready to use we can use <code>BiocManager::install("package_name")</code> to get a package from Bioconductor.</p>
+<p>Another common place to host a package is <a href="https://github.com/">GitHub</a>. It is a free software development repository (dropbox for software developers). Sometimes, developers host their packages here because a) it is in development and not fully done, b) it doesn’t have complicated review process. While it is a good source to know, you should also be aware that not everything you get from github may work 100%. In anycase, we need another package called DevTools to install packages from github. You can get this package like any other package with <code>install.packages("devtools")</code> and <code>library(devtools)</code>. Then we need the link to the github site of the package to install it. Once we have this we can proceed with <code>devtools::install_github(repo = "package_link")</code>.</p>
+<p>With that said, we are not at the end of the section that you need to study before the lecture. Following chapters will introduce the basics and principles of natural language processing and automated content analysis using R.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics-of-object-oriented-programming-oop.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-operations_R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
